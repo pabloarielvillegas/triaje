@@ -1,0 +1,149 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>HBC - Turnos Consulta Externa</title>
+  <link href="../consultaexterna/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="../consultaexterna/interfaz/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<header>
+         <a href="/consultaexterna/index.php"><img src="/consultaexterna/interfaz/images/logo.png">  </a>
+         
+        
+    </div>    
+  </header>
+
+<?php
+include("../triaje/config/datos_conexion.php");
+/// ---------------------Inicio paginación ....................................
+    $tamano_paginas=10; /// Muestra el número de registros por página
+
+    if(isset($_GET["pagina"])){ 
+    
+      if ($_GET["pagina"]==1) {
+        header("Location:turnos_ce.php");
+      }else {
+        $pagina=$_GET["pagina"] ;
+
+      }
+    }else{  
+    $pagina=1;
+    }
+    
+    $empezar_desde=($pagina-1)*$tamano_paginas;
+    $sql_total = "SELECT idtr,apellidos,nombres FROM turnostriaje";
+    $resultado=$base->prepare($sql_total);
+    $resultado->execute(array());
+    $num_filas=$resultado->rowCount(); // Contar el numero de registros
+    $total_paginas = ceil($num_filas/$tamano_paginas);
+    
+//---------------------------------------------------------------------------
+
+
+
+//---------------------------------------------------------------------
+
+// Recuperando registros de la bd
+
+
+$registros=$base->query("SELECT * FROM turnostriaje WHERE estado=0 ORDER BY idce DESC LIMIT $empezar_desde, $tamano_paginas")->fetchAll(PDO::FETCH_OBJ);
+
+if (isset($_POST["crear"])) {
+  $fecha=$_POST["fecha"];
+  $apellidos=$_POST["apellidos"];
+  $nombres=$_POST["nombres"];
+  $consultorio=$_POST["consultorio"];
+  $sql="INSERT INTO turnosce (fecha, apellidos, nombres, consultorio) 
+  VALUES(:MARC_fecha, :MARC_apellidos, :MARC_nombres, :MARC_consultorio )";
+  $resultado = $base->prepare($sql);
+  $resultado->execute(array(":MARC_fecha"=>$fecha,":MARC_apellidos"=>$apellidos, ":MARC_nombres"=>$nombres, ":MARC_consultorio"=>$consultorio));
+  header("Location:turnos_ce.php");
+}
+
+?>	
+
+<h1> <img src="interfaz/images/lapiz.jpeg" alt="llamar" width="50" height="25"> Registro de Pacientes en Preparación</h1>
+<div class="container">
+<form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+<div class="table-responsive">
+	<table class="table table-bordered table-condensed">
+    <tr class="danger">
+      <th>Turno</th>
+      <th>Fecha</th>
+      <th>Apellidos</th>
+      <th>Nombres</th>
+      <th></th>
+      <th>Consultorio</th>
+      
+	  </tr> 
+  
+<tr>
+    <td></td>
+      <td><input type='text' name='fecha' value="<?php echo date('Y/m/d')." ".date("H".":"."i");?>"></td>
+      <td><input type='text' name='apellidos' placeholder="Apellidos"></td>
+      <td><input type='text' name='nombres' placeholder="Nombres"></td>
+      <td></td>
+      <td><select  name="consultorio" type="text" id="consultorio" required="required">
+                        <option  value="">Consultorio</option>
+                        <option  value="Cirugía">Cirugía</option>
+                        <option  value="Ginecología 1">Ginecología 1</option>
+                        <option  value="Ginecología 2">Ginecología 2</option>
+                        <option  value="Medicina Interna">Medicina Interna</option>
+                        <option  value="Pediatría 1">Pediatría 1</option>
+                        <option  value="Pediatría 2">Pediatría 2</option>
+                        <option  value="Traumatología">Traumatología</option>
+                      </select></td>
+
+       <td class='bot'><input type='submit' name='crear' id='crear' value='Insertar' class="btn btn-default btn-lg btn-success"></td>
+    </tr>    
+
+  
+
+	<?php
+		foreach($registros as $fila):?> 
+	
+   	<tr>
+      <td><?php echo $fila->idce?></td>
+	   	<td><?php echo $fila->fecha?></td>      
+      <td><?php echo $fila->apellidos?></td>
+      <td><?php echo $fila->nombres?><td>
+      <td><?php echo $fila->consultorio?><td>
+    
+      <td><a href="turnos_ce_delete.php?idce=<?php echo $fila->idce?>"><input type='button' name='del' id='del' value='Borrar' class="btn btn-primary btn-lg btn-danger"></a></td>
+      <td><a href="turnos_ce_update.php?idce=<?php echo $fila->idce?> & fecha=<?php echo $fila->fecha?> & apellidos=<?php echo $fila->apellidos?> & nombres=<?php echo $fila->nombres?> & consultorio=<?php echo $fila->consultorio?>"><input type='button' name='up' id='up' value='Editar' class="btn btn-primary btn-lg btn-succes"></a></td>
+    </tr> 
+	<?php
+	endforeach;
+	?>
+
+
+	</div>
+  </table>
+
+  </form>
+
+</div>
+  <div align="center">
+    <?php
+
+    //  ------------------------------------Paginación ---------------------------------------
+    
+    for ($i=1; $i<=$total_paginas ; $i++) { 
+    
+      echo "<a href='?pagina=".$i."'>" . $i. "</a>  ";
+    }
+
+    echo "<br>Total pacientes preparados por atender ".$num_filas."<br>";
+    echo "Se muestran " . $tamano_paginas . " registros por página <br>";
+    echo  "Página " . $pagina . " de " . $total_paginas . "<br>";   
+
+  ?>  
+  </div>
+
+<script src="../consultaexterna/lib/jquery/jquery-3.1.1.min.js"></script>
+<script src="../consultaexterna/lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

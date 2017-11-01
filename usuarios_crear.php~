@@ -1,0 +1,75 @@
+<?php
+
+	// Inicio de sesion despues del Login 
+	session_start();
+	if(!isset($_SESSION["usuario"])) {
+		header("Location:index.php");
+	}
+?>	
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	   <style>
+		
+		table{
+			width:300px;
+			margin:auto;
+			background-color:#FFC;
+			border:2px solid #F00;
+			padding:5px;
+			
+		}
+		
+		td{
+			text-align:center;
+			
+		}
+		h1{text-align:center}
+		
+		</style>
+</head>
+<body>
+	
+		<header>
+				<a href="/contrareferencias/index.php"> <img src="../contrareferencias/images/logo.png"> </a>
+				
+		</div>	
+
+		<div align="right">
+				<?php
+					echo "<b>Usuario</b> :". $_SESSION["usuario"];
+				?>
+		<br>		
+		<a href="usuarios_logout.php"> Cerrar  Sesión </a>
+
+		</div>		
+		</header>		
+		
+	
+		<form action="usuarios_crear_procesar.php" method="post">
+        <table>
+        <tr>
+          <td>Identificacion</td>
+          <td><input type="text" name="id" id="id" maxlength="10" placeholder="Ingrese el # de cedula" required=""></td>
+          </tr>
+        <tr>
+          <td>Usuario</td>
+          <td><input type="text" name="usuario" id="usuario" maxlength="20"></td>
+          </tr>
+        <tr>
+          <td> Contraseña </td>
+          <td><input type="password" name="password" id="password"></td>
+        </tr>
+           
+           <tr><td colspan="2"> <input type="submit" name="enviando" value="Enviar">
+        </td></tr></table>
+        </form>
+
+	
+</body>
+</html>

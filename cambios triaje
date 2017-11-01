@@ -1,0 +1,44 @@
+------------Enfermera-------------------------
+
+f08		10 núneros
+
+direccion	200 caracteres
+
+telefono	10 caracteres
+
+afiliado	50 caracteres	
+		No Aporta
+		IESS Seguro General
+		IESS Seguro Voluntario
+		IESS Seguro Campesino		
+		Jubilado IESS/SSC/ISSFA/ISSPOL		
+		ISSFA
+		ISSPOL
+		Seguro Privado
+		Seguro Indirecto
+
+
+--------------Medico---------------
+
+ccie10		10 caracteres
+
+transferido	50 caracteres
+		No
+		Interconsulta
+		Hospitalización
+		Hospital Segundo Nivel
+		Hospital Tercer Nivel
+		Insitución Privada		
+
+Correr esta conuslta en la consola sql de phpmyadmin
+
+ALTER TABLE `turnostriaje` ADD `f08` INT( 10 ) NOT NULL AFTER `idtr` ;
+ALTER TABLE `turnostriaje` ADD `direccion` VARCHAR( 200 ) NOT NULL AFTER `cc` ;
+ALTER TABLE `turnostriaje` ADD `telefono` VARCHAR( 20 ) NOT NULL AFTER `direccion` ;
+ALTER TABLE `turnostriaje` ADD `afiliado` VARCHAR( 50 ) NOT NULL AFTER `telefono` ;
+ALTER TABLE `turnostriaje` ADD `consultorio` VARCHAR( 50 ) NOT NULL AFTER `afiliado` ;
+ALTER TABLE `turnostriaje` ADD `ccie10` VARCHAR( 10 ) NOT NULL AFTER `observacion` ;
+ALTER TABLE `turnostriaje` ADD `transferido` VARCHAR( 50 ) NOT NULL AFTER `medicacion` ;
+
+http://localhost/triaje/turnos_triaje_llamar.php
+UPDATE `triaje`.`turnostriaje` SET `e_turno` = 'Registrado';

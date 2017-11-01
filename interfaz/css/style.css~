@@ -1,0 +1,31 @@
+h1 {
+
+text-align: center;
+background-color: #E0FFFF; 
+ 
+}
+
+
+h2 {
+text-align: center;
+background-color: #D3D3D3;
+ 
+}
+
+
+
+h3 {
+text-align: left;;
+background-color: #98FB98;
+ 
+}
+
+h4 {
+text-align: left;;
+color: #ff0000;
+ 
+}
+
+tr:hover{
+			background-color: #7FFFD4;
+	}
