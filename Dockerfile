@@ -9,4 +9,4 @@ FROM httpd:2.4
 LABEL Descripción="Sistema de Triaje " Autor="Franklin Lara" Versión="v1.0.0"
 
 # Se copian los ficheros hacia la carpeta de html
-COPY triaje /var/www/html
+COPY triaje /usr/local/apache2/htdocs/
