@@ -2,7 +2,7 @@
 # Sistema para Triaje
 #
 
-# Se construye sobre la base de la imagen apache
+# Se construye sobre la base de la imagen nginx
 FROM nginx:1.11-alpine
 
 # Se agregan metadatos a la imagen
