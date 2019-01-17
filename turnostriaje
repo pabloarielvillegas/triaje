@@ -1,0 +1,72 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 17-01-2019 a las 16:37:09
+-- Versión del servidor: 5.7.23
+-- Versión de PHP: 7.2.10
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Base de datos: `triaje`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `turnostriaje`
+--
+
+DROP TABLE IF EXISTS `turnostriaje`;
+CREATE TABLE IF NOT EXISTS `turnostriaje` (
+  `idtr` int(10) NOT NULL AUTO_INCREMENT,
+  `f08` int(10) NOT NULL,
+  `fecha_ia` time NOT NULL,
+  `hora_ia` int(11) NOT NULL,
+  `sexo` varchar(10) NOT NULL,
+  `apellidos` varchar(50) NOT NULL,
+  `nombres` varchar(50) NOT NULL,
+  `edad` int(2) NOT NULL,
+  `edadma` varchar(10) NOT NULL,
+  `cc` varchar(17) NOT NULL,
+  `direccion` varchar(200) NOT NULL,
+  `telefono` varchar(10) NOT NULL,
+  `afiliado` varchar(50) NOT NULL,
+  `consultorio` varchar(50) NOT NULL,
+  `sv_pa` varchar(10) NOT NULL,
+  `sv_fc` varchar(10) NOT NULL,
+  `sv_fr` varchar(10) NOT NULL,
+  `sv_te` varchar(10) NOT NULL,
+  `sv_so` varchar(10) NOT NULL,
+  `sv_gl` varchar(10) NOT NULL,
+  `peso` varchar(5) NOT NULL,
+  `enfer_croni` int(2) NOT NULL,
+  `motivo` varchar(200) NOT NULL,
+  `tiempo_evol` varchar(50) NOT NULL,
+  `se_vae` varchar(2) NOT NULL,
+  `se_ven` varchar(2) NOT NULL,
+  `se_car` varchar(2) NOT NULL,
+  `se_neu` varchar(2) NOT NULL,
+  `prioridad_tm` varchar(20) NOT NULL,
+  `hora_llamada` varchar(8) NOT NULL,
+  `hora_llamada2` varchar(8) NOT NULL,
+  `hora_llamada3` varchar(8) NOT NULL,
+  `fecha_ic` date NOT NULL,
+  `hora_ic` time NOT NULL,
+  `e_turno` varchar(12) NOT NULL,
+  `observacion` varchar(100) NOT NULL,
+  `ccie10` varchar(10) NOT NULL,
+  `diagnostico` varchar(100) NOT NULL,
+  `medicacion` varchar(200) NOT NULL,
+  `transferido` varchar(50) NOT NULL,
+  `conteo` int(1) NOT NULL,
+  `usuario_registro` varchar(50) NOT NULL,
+  `usuario_atencion` varchar(50) NOT NULL,
+  PRIMARY KEY (`idtr`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+COMMIT;
